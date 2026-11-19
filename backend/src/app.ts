@@ -9,14 +9,25 @@ app.use(express.urlencoded({ extended: true }));
 // Exercise 1 — Create a server information endpoint
 app.get("/api/health", (req, res) => {
     res.status(200).json({
-        "application": "Full Stack Learning Project",
-        "developer": "Kshitinjay",
-        "experience": "5 years",
-        "stack": [
-            "Node.js",
-            "Express.js",
-            "TypeScript"
-        ]
+        "success": true,
+        "message": "Server is running"
+    })
+})
+
+app.get("/api/info", (req, res) => {
+    res.status(200).json({
+        "success": true,
+        "message": "Server information received successfully",
+        "data": {
+            "application": "Full Stack Learning Project",
+            "developer": "Kshitinjay",
+            "experience": "5 years",
+            "stack": [
+                "Node.js",
+                "Express.js",
+                "TypeScript"
+            ]
+        }
     })
 })
 
@@ -29,19 +40,19 @@ app.get("/api/users/:userId", (req, res) => {
 })
 
 // Exercise 3 — Understand query parameters
-app.get("/api/search?name=Kshitinjay&role=developer", (req, res) => {
+app.get("/api/search", (req, res) => {
     res.status(200).json({
-        "success": true,
-        "filters": {
-            "name": req.query.name,
-            "role": req.query.role
-        }
-    })
-})
+        success: true,
+        filters: {
+            name: req.query.name,
+            role: req.query.role,
+        },
+    });
+});
 
 // Exercise 4 — Understand request body
 app.post("/api/users", (req, res) => {
-    res.status(200).json({
+    res.status(201).json({
         "success": true,
         "message": "User data received successfully",
         "data": {
