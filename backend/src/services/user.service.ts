@@ -8,14 +8,9 @@ const normalize = (value: unknown): string =>
     typeof value === "string" ? value.trim().toLowerCase() : "";
 
 export const createUser = (userData: CreateUserInput): User | null => {
-    const nameFilter = normalize(userData?.name);
-    const emailFilter = normalize(userData?.email);
+    const emailKey = normalize(userData.email);
 
-    if (!nameFilter || !emailFilter) {
-        return null;
-    }
-
-    const existingUser = users.find((user) => user.email.toLocaleLowerCase() === userData.email.toLocaleLowerCase());
+    const existingUser = users.find((user) => normalize(user.email) === emailKey);
 
     if (existingUser) {
         return null;
@@ -23,8 +18,8 @@ export const createUser = (userData: CreateUserInput): User | null => {
 
     const newUser: User = {
         id: randomUUID(),
-        name: userData.name,
-        email: userData.email,
+        name: userData.name.trim(),
+        email: userData.email.trim(),
     };
 
     users.push(newUser);
@@ -50,8 +45,8 @@ export const searchUsers = ({ name, email }: SearchUserInput): User | null => {
 
     const user = users.find(
         (user) =>
-            (!nameFilter || user.name.toLowerCase() === nameFilter) &&
-            (!emailFilter || user.email.toLowerCase() === emailFilter),
+            (!nameFilter || normalize(user.name) === nameFilter) &&
+            (!emailFilter || normalize(user.email) === emailFilter),
     );
 
     return user ?? null;

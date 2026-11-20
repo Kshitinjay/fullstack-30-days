@@ -2,10 +2,24 @@ import type { Request, Response } from "express";
 
 import * as userService from "../services/user.service.js";
 
-import type {CreateUserInput} from "../types/user.types.js";
+export const createUser = (req: Request, res: Response) => {
+  const { name, email } = req.body ?? {};
 
-export const createUser = (req: Request<{}, {}, CreateUserInput>, res: Response) => {
-  const user = userService.createUser(req.body);
+  if (typeof name !== "string" || typeof email !== "string" || !name.trim() || !email.trim()) {
+    return res.status(400).json({
+      success: false,
+      message: "name and email are required",
+    });
+  }
+
+  if (!email.includes("@")) {
+    return res.status(400).json({
+      success: false,
+      message: "email must be a valid email address",
+    });
+  }
+
+  const user = userService.createUser({ name, email });
 
   if (!user) {
     return res.status(409).json({
