@@ -2,6 +2,7 @@ import express from "express";
 
 import userRoutes from "./routes/user.routes.js";
 import systemRoutes from "./routes/system.routes.js";
+import tasksRoutes from "./routes/tasks.routes.js";
 
 const app = express(); //express() creates an Express application.
 
@@ -12,5 +13,6 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/api", systemRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/tasks", tasksRoutes);
 
 export default app;
