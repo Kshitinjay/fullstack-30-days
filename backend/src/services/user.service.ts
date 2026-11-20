@@ -11,11 +11,11 @@ export const createUser = (userData: CreateUserInput): User | null => {
     const nameFilter = normalize(userData?.name);
     const emailFilter = normalize(userData?.email);
 
-    if (!nameFilter && !emailFilter) {
+    if (!nameFilter || !emailFilter) {
         return null;
     }
 
-    const existingUser = users.find((user) => user.email === userData.email);
+    const existingUser = users.find((user) => user.email.toLocaleLowerCase() === userData.email.toLocaleLowerCase());
 
     if (existingUser) {
         return null;

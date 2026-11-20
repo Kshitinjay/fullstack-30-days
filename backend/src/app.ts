@@ -10,7 +10,7 @@ app.use(express.json()); //parses incoming JSON request bodies and makes the par
 app.use(express.urlencoded({ extended: true }));
 
 
-app.use("/api/system", systemRoutes);
+app.use("/api", systemRoutes);
 app.use("/api/users", userRoutes);
 
 export default app;

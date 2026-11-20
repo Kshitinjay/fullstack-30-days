@@ -4,7 +4,6 @@ import { getHealth , getInfo} from "../controllers/system.controller.js";
 const router = Router();
 
 router.get("/health", getHealth);
-
-router.get("/api/info", getInfo);
+router.get("/info", getInfo);
 
 export default router;
