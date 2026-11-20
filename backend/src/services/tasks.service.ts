@@ -7,13 +7,10 @@ const normalize = (value: unknown): string =>
     typeof value === "string" ? value.trim().toLowerCase() : "";
 
 export const getAllTasks = (): Task[] => {
-
-    console.log('Service called');
-
     return [...tasks];
 };
 
-export const createTask = (value: String): Task | null => {
+export const createTask = (value: string): Task | null => {
     const taskValue = normalize(value);
 
     const existingTask = tasks.find((task) => normalize(task.value) === taskValue);
@@ -52,6 +49,16 @@ export const getTask = (id: string): Task | null => {
         return null;
     }
     
+    return task;
+}
+
+export const getTaskByValue = (value: string): Task | null => {
+    const task = tasks.find((task) => normalize(task.value) === normalize(value));
+
+    if (!task) {
+        return null;
+    }
+
     return task;
 }
 
